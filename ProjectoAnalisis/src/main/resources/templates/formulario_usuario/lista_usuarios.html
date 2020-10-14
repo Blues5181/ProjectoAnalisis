@@ -11,13 +11,13 @@
                                         </tr>	
                                         </thead>	
                                         <tbody>	
-                                        <tr>	
-                                            <th scope="row">1</th>	
-                                            <td>Cristian</td>	
-                                            <td>Ruiz</td>	
-                                            <td>c.r.username</td>	
-                                            <td>c.r.username@blog.com</td>	
-                                            <td>	
+                                       <tr th:each="usuario: ${userList}">
+			<td th:text="${usuario.id}"></td>
+			<td th:text="${usuario.firstName}"></td>
+			<td th:text="${usuario.lastName}"></td>
+			<td th:text="${usuario.username}"></td>
+			<td th:text="${usuario.email}"></td>
+			<td>
                                                 <a href="#"><i class="fas fa-edit"></i></a> | <a href="#"><i class="fas fa-user-times"></i></a>	
                                             </td>	
                                         </tr>	
