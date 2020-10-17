@@ -13,7 +13,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import org.hibernate.annotations.GenericGenerator;
-
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.persistence.JoinColumn;
 @Entity
 public class Usuario implements Serializable {
@@ -27,15 +29,23 @@ public class Usuario implements Serializable {
 	@GenericGenerator(name="native",strategy="native")
 	private Long id;
 	
-	@Column 
+	@Column
+	@NotBlank
+	@Size(min=5,message="debe ingresar un dato")
 	private String firstName;
 	@Column 
+	@NotBlank
 	private String lastName;
+	@NotBlank
 	@Column(unique = true) 
+	@NotBlank
 	private String email;
 	@Column(unique = true) 
+	@NotBlank
 	private String username;
 	@Column
+	@NotNull
+	@NotBlank
 	private String password;
 	
 	@Transient  
