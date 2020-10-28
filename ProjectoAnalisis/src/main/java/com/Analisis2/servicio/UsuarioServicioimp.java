@@ -76,7 +76,14 @@ to.setLastName(from.getLastName());
 to.setEmail(from.getEmail());
 to.setRoles(from.getRoles());
 	
-	
-	
+}
+
+public void deleteUser(Long id) throws Exception {
+	Usuario usuario = getUserById(id);
+			
+
+repository.delete(usuario);
 }
 }
+
+
