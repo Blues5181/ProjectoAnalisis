@@ -30,6 +30,12 @@ private boolean checkUsernameAvailable(Usuario usuario) throws Exception {
 }
 
 private boolean checkPasswordValid(Usuario usuario) throws Exception {
+	if(usuario.getConfirmPassword()==null || usuario.getConfirmPassword().isEmpty()) {
+		throw new Exception("Es necesario Confirmar el password");
+		
+		
+	}
+	
 	
 	if(!usuario.getPassword().equals(usuario.getConfirmPassword())){
 		
@@ -45,5 +51,32 @@ if(checkUsernameAvailable(usuario) && checkPasswordValid(usuario)) {
 	usuario = repository.save(usuario);
 }
 	return usuario;
+}
+
+@Override 
+public Usuario getUserById(Long id) throws Exception {
+return repository.findById(id).orElseThrow(() -> new Exception("Usuario no existe"));
+	
+
+	
+}
+@Override
+public Usuario updateUser(Usuario fromUser) throws Exception {
+	Usuario toUser= getUserById(fromUser.getId());
+	mapUser(fromUser,toUser);
+	return repository.save(toUser);
+	
+}
+
+//actualizamos todo menos el password
+protected void mapUser(Usuario from,Usuario to) {
+to.setUsername(from.getUsername());
+to.setFirstName(from.getFirstName());
+to.setLastName(from.getLastName());
+to.setEmail(from.getEmail());
+to.setRoles(from.getRoles());
+	
+	
+	
 }
 }

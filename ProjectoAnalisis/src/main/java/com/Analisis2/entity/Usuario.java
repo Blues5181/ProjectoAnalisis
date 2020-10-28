@@ -31,7 +31,7 @@ public class Usuario implements Serializable {
 	
 	@Column
 	@NotBlank
-	@Size(min=5,message="debe ingresar un dato")
+	@Size(min=3,message="debe ingresar un dato")
 	private String firstName;
 	@Column 
 	@NotBlank
