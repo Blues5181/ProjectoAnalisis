@@ -74,7 +74,10 @@
                 </div>	
             </div>	
         </div>	
-    </div>	
+    </div><div th:if="${editMode}" th:include="formulario_usuario/change-password.html" th:remove="tag"></div>
+<div th:include="formulario_usuario/confirmacion_eliminacion.html" th:remove="tag"></div>
+</body>	
+    
     <div th:include="formulario_usuario/confirmacion_eliminacion.html" th:remove="tag"></div>
 </body>	
 </html> 

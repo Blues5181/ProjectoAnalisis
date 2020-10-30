@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Analisis2.dto.ChangePasswordForm;
 import com.Analisis2.entity.Usuario;
 import com.Analisis2.repositorio.UsuarioRepo;
 
@@ -83,6 +84,28 @@ public void deleteUser(Long id) throws Exception {
 			
 
 repository.delete(usuario);
+}
+@Override
+public Usuario changePassword(ChangePasswordForm form) throws Exception {
+	
+Usuario usuario = getUserById(form.getId());
+	
+if(!usuario.getPassword().equals(form.getCurrentPassword())) {
+	
+	throw new Exception ("Password Actual incorrecto");
+	
+}
+if(usuario.getPassword().equals(form.getNewPassword())) {
+	
+	throw new Exception ("El password debe de ser diferente al actual");
+}
+
+if(!form.getNewPassword().equals(form.getConfirmPassword())) {
+	throw new Exception ("El password no coincide");
+	
+}
+usuario.setPassword(form.getNewPassword());
+return repository.save(usuario);
 }
 }
 

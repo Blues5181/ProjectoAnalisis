@@ -2,6 +2,7 @@ package com.Analisis2.servicio;
 
 import javax.validation.Valid;
 
+import com.Analisis2.dto.ChangePasswordForm;
 import com.Analisis2.entity.Usuario;
 
 public interface UsuarioServicio {
@@ -15,5 +16,6 @@ public interface UsuarioServicio {
 public Usuario updateUser(Usuario usuario) throws Exception;
 
 public void deleteUser(Long id) throws Exception;
+public Usuario changePassword(ChangePasswordForm form) throws Exception;
 
 }

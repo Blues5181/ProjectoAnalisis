@@ -1,6 +1,7 @@
 package com.Analisis2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -9,10 +10,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
+
+import com.Analisis2.dto.ChangePasswordForm;
 import com.Analisis2.entity.Usuario;
 import com.Analisis2.repositorio.RepoRol;
 import com.Analisis2.servicio.UsuarioServicio;
+
 
 @Controller
 public class UsuarioController {
@@ -72,7 +81,8 @@ public String getEditUserForm(Model model, @PathVariable(name="id")Long id)throw
 	model.addAttribute("userList", usuarioService.getAllUsers());
 	model.addAttribute("roles",rolRepositorio.findAll());
 	model.addAttribute("formTab","active");	
-	model.addAttribute("editMode",true);	
+	model.addAttribute("editMode",true);
+	model.addAttribute("passwordForm",new ChangePasswordForm(id));
 	
 	return "formulario_usuario/vista_usuario";
 }
@@ -84,6 +94,7 @@ public String postEditUserForm(@Valid @ModelAttribute("userForm")Usuario usuario
 		model.addAttribute("userForm",usuario);
 		model.addAttribute("formTab","active");
 		model.addAttribute("editMode",true);
+		model.addAttribute("passwordForm",new ChangePasswordForm(usuario.getId()));
 		
 	}else {
 		try {
@@ -122,4 +133,25 @@ public String deleteUser(Model model, @PathVariable(name="id") Long id) {
 	return getformUser(model);
 
 }
+
+@PostMapping("/editUser/changePassword")
+public ResponseEntity postEditUseChangePassword(@Valid @RequestBody ChangePasswordForm form, org.springframework.validation.Errors errors)
+{
+	try {
+		if(errors.hasErrors()) {
+			
+			String result= errors.getAllErrors()
+					.stream().map(x-> x.getDefaultMessage())
+					.collect(Collectors.joining(""));
+			
+			throw new Exception(result);
+		}
+		usuarioService.changePassword(form);
+		
+	}catch (Exception e) {
+		return ResponseEntity.badRequest().body(e.getMessage());
+	}
+return ResponseEntity.ok("succes");
+}
+
 }
