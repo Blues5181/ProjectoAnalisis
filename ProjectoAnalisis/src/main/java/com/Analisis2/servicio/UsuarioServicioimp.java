@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.Analisis2.Exception.UsernameOrIdNotFound;
 import com.Analisis2.dto.ChangePasswordForm;
 import com.Analisis2.entity.Usuario;
 import com.Analisis2.repositorio.UsuarioRepo;
@@ -65,8 +66,8 @@ if(checkUsernameAvailable(usuario) && checkPasswordValid(usuario)) {
 }
 
 @Override 
-public Usuario getUserById(Long id) throws Exception {
-return repository.findById(id).orElseThrow(() -> new Exception("Usuario no existe"));
+public Usuario getUserById(Long id) throws UsernameOrIdNotFound {
+return repository.findById(id).orElseThrow(() -> new UsernameOrIdNotFound("el id del usuario no exite"));
 	
 
 	
@@ -89,7 +90,7 @@ to.setRoles(from.getRoles());
 	
 }
 @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-public void deleteUser(Long id) throws Exception {
+public void deleteUser(Long id) throws UsernameOrIdNotFound {
 	Usuario usuario = getUserById(id);
 			
 

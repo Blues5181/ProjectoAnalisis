@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.Analisis2.Exception.UsernameOrIdNotFound;
 import com.Analisis2.dto.ChangePasswordForm;
 import com.Analisis2.entity.Usuario;
 import com.Analisis2.repositorio.RepoRol;
@@ -127,8 +128,8 @@ public String cancelEditUser(ModelMap model) {
 public String deleteUser(Model model, @PathVariable(name="id") Long id) {
 	try {
 		usuarioService.deleteUser(id);
-	} catch (Exception e) {
-		model.addAttribute("listErrorMessage",e.getMessage());
+	} catch (UsernameOrIdNotFound uoin) {
+		model.addAttribute("listErrorMessage",uoin.getMessage());
 	}
 	return getformUser(model);
 
