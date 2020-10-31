@@ -13,13 +13,18 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.persistence.JoinColumn;
 @Entity
 public class Usuario implements Serializable {
-
+	
+	
+	
 	/**
 	 * 
 	 */
@@ -101,13 +106,15 @@ public class Usuario implements Serializable {
 		return password;
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		
+
+		this.password =password;
 	}
 	public String getConfirmPassword() {
 		return confirmPassword;
 	}
 	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
+		this.confirmPassword =confirmPassword;
 	}
 	public Set<Role> getRoles() {
 		return roles;

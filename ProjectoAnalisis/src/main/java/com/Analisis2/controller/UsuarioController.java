@@ -32,7 +32,7 @@ public class UsuarioController {
 	@Autowired
 	RepoRol rolRepositorio;
 	
-	@GetMapping("/")
+	@GetMapping({"/","/login"})
 	public String index() {
 		return "index";
 				

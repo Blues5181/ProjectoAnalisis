@@ -3,6 +3,10 @@ package com.Analisis2.servicio;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.Analisis2.dto.ChangePasswordForm;
@@ -14,7 +18,8 @@ public class UsuarioServicioimp implements UsuarioServicio {
 
 	@Autowired
 	UsuarioRepo repository;
-	
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Override
 	public Iterable<Usuario> getAllUsers() {
@@ -29,6 +34,8 @@ private boolean checkUsernameAvailable(Usuario usuario) throws Exception {
 	}
 	return true;
 }
+
+
 
 private boolean checkPasswordValid(Usuario usuario) throws Exception {
 	if(usuario.getConfirmPassword()==null || usuario.getConfirmPassword().isEmpty()) {
@@ -49,6 +56,9 @@ private boolean checkPasswordValid(Usuario usuario) throws Exception {
 public Usuario createUsuario(Usuario usuario) throws Exception {
 if(checkUsernameAvailable(usuario) && checkPasswordValid(usuario)) {
 	
+	
+	String encodePaasswkrd =bCryptPasswordEncoder.encode(usuario.getPassword());
+	usuario.setPassword(encodePaasswkrd);
 	usuario = repository.save(usuario);
 }
 	return usuario;
@@ -78,7 +88,7 @@ to.setEmail(from.getEmail());
 to.setRoles(from.getRoles());
 	
 }
-
+@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 public void deleteUser(Long id) throws Exception {
 	Usuario usuario = getUserById(id);
 			
@@ -90,11 +100,11 @@ public Usuario changePassword(ChangePasswordForm form) throws Exception {
 	
 Usuario usuario = getUserById(form.getId());
 	
-if(!usuario.getPassword().equals(form.getCurrentPassword())) {
-	
-	throw new Exception ("Password Actual incorrecto");
-	
+if( !isLoggedUserADMIN() && form.getCurrentPassword().equals(form.getCurrentPassword())) {
+	throw new Exception("Current Password Incorrect.");
 }
+
+
 if(usuario.getPassword().equals(form.getNewPassword())) {
 	
 	throw new Exception ("El password debe de ser diferente al actual");
@@ -104,9 +114,29 @@ if(!form.getNewPassword().equals(form.getConfirmPassword())) {
 	throw new Exception ("El password no coincide");
 	
 }
-usuario.setPassword(form.getNewPassword());
+String encodePaasswkrd =bCryptPasswordEncoder.encode(form.getNewPassword());
+usuario.setPassword(encodePaasswkrd);
 return repository.save(usuario);
 }
+
+public boolean isLoggedUserADMIN(){
+	 return loggedUserHasRole("ROLE_ADMIN");
+	}
+
+	public boolean loggedUserHasRole(String role) {
+	 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	 UserDetails loggedUser = null;
+	 Object roles = null; 
+	 if (principal instanceof UserDetails) {
+	  loggedUser = (UserDetails) principal;
+	 
+	  roles = loggedUser.getAuthorities().stream()
+	    .filter(x -> role.equals(x.getAuthority() ))      
+	    .findFirst().orElse(null); //loggedUser = null;
+	 }
+	 return roles != null ?true :false;
+	}
+
 }
 
 
