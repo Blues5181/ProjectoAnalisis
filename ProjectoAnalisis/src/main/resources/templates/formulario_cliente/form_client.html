@@ -1,9 +1,13 @@
-<form id="clientForm" th:object="${clientForm}" method="post" class="form" role="form" th:action="@{/for_client}">
-	<input class="form-control" type="hidden" th:field="${clientForm.id}">
+	<div th:with="disableFields=!${editMode}"  >
+	
+	<form id="userForm" th:object="${clientForm}" method="post" class="form" role="form" th:action="${editMode}? @{/editClient}:@{/for_client}">
+	
+	
+	<input class="form-control" type="hidden" th:field="${clientForm.id}" th:if="${editMode}">
 	<div class="form-group row">
 		<label class="col-lg-3 col-form-label form-control-label">Nombre</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${clientForm.nombre}">
+			<input class="form-control" type="text" th:field="${clientForm.nombre}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Name Error</div>
 		</div>
 	</div>
@@ -11,22 +15,22 @@
 		<label class="col-lg-3 col-form-label form-control-label">nit
 			</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${clientForm.nit}">
+			<input class="form-control" type="text" th:field="${clientForm.nit}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('nit')}" th:errors="*{nit}">Name Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
 		<label class="col-lg-3 col-form-label form-control-label">Direccion</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${clientForm.dirreccion}">
+			<input class="form-control" type="text" th:field="${clientForm.dirreccion}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('dirreccion')}" th:errors="*{dirreccion}">Name Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
 		<div class="col-lg-12 text-center">
-			<input type="reset" class="btn btn-secondary" value="Cancel">
-			<input type="submit" class="btn btn-primary"
-				value="Save Changes">
+			<a class="btn btn-secondary"  th:href="@{'/userForm/cancel'}">Cancelar</a>
+		<input type="submit" class="btn btn-primary"
+				value="Save Changes" th:value="${editMode}?'Guardar Cliente':'Crear Cliente'">
 		</div>
 	</div>
 	<div class="alert alert-danger text-center" th:if="${formErrorMessage}" th:text="${formErrorMessage}">Error MEssage</div>

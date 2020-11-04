@@ -23,8 +23,8 @@
 	<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 	
 	<!-- Nuestro css-->
-	<link rel="stylesheet" type="text/css" href="static/css/user-form.css"
-		th:href="@{/css/user-form.css}">
+	<link rel="stylesheet" type="text/css" href="static/css/form_usuario.css"
+		th:href="@{/css/form_usuario.css}">
 
 	<!-- DATA TABLE -->
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -62,7 +62,7 @@
                 <div class="tab-pane fade show" th:classappend=" ${listTab}" id="list" role="tabpanel" aria-labelledby="list-tab">	
                     <div class="card">	
                         <div class="card-header">	
-                            <h4 class="mb-0">Roster</h4>	
+                            <h4 class="mb-0">LISTA</h4>	
                         </div>	
                         <div class="card-body">	
                              <div th:include="formulario_usuario/lista_usuarios.html" th:remove="tag"></div>  
@@ -72,7 +72,7 @@
                 <div class="tab-pane fade show"th:classappend=" ${formTab}" id="form" role="tabpanel" aria-labelledby="form-tab">	
                     <div class="card">	
                         <div class="card-header">	
-                            <h4>User Information</h4>	
+                            <h4>Informacion Usuario</h4>	
                         </div>	
                             <div class="card-body">
                             
