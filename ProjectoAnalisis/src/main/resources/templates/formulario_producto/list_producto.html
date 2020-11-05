@@ -18,10 +18,10 @@
 			<td th:text="${cliente.nit}"></td>
 			<td>
                                      
-                                                <a href="#" th:href="@{'/editProducto/'+${producto.id}}"><i class="fas fa-edit"></i></a> 
+                                                <a href="#" th:href="@{'/editClient/'+${cliente.id}}"><i class="fas fa-edit"></i></a> 
                                               
                                                 <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or ${#authorization.expression('hasRole(''ROLE_USER'')')}"  >
-                                               <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${producto.id} +'\');'"><i class="fas fa-user-times"></i></a>
+                                               <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${cliente.id} +'\');'"><i class="fas fa-user-times"></i></a>
                                            </span>       
                                             </td>	
                                         </tr>	
@@ -36,7 +36,7 @@ function confirmDelete(id){
 
 function deleteUser(){
 	var id = $("#userIdHiddenInput").val();
-    window.location = "deleteClient/"+id;
+    window.location = "deleteProducto/"+id;
 }
 </script>                                    
                                 
