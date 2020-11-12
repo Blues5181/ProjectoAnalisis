@@ -25,7 +25,8 @@
 	<!-- Nuestro css-->
 	<link rel="stylesheet" type="text/css" href="static/css/form_usuario.css"
 		th:href="@{/css/form_usuario.css}">
-
+<link rel="stylesheet" type="text/css" href="static/css/paraMinavbar.css"	
+		th:href="@{/css/paraMinavbar.css}">	
 	<!-- DATA TABLE -->
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
@@ -41,6 +42,8 @@
     </script>	
 </head>	
 <body>	
+
+ <div th:include="barras/navbar.html" th:remove="tag"></div> 
     <div class="container">	
         <div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">	
             <ul class="nav nav-tabs justify-content-end">	
