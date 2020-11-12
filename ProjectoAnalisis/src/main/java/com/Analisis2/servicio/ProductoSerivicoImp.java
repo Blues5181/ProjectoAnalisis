@@ -4,12 +4,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
 
 import com.Analisis2.Exception.UsernameOrIdNotFound;
 import com.Analisis2.entity.Producto;
 import com.Analisis2.repositorio.ProductoRepo;
 
-public class ProductoSerivicoImp implements ProductoServicio {
+@Service
+public class ProductoSerivicoImp implements ProductoServicio1 {
 
 	@Autowired
 	ProductoRepo repository;	
@@ -21,10 +23,10 @@ public class ProductoSerivicoImp implements ProductoServicio {
 	}
 	
 	
-	private boolean checkProductoAvailable(Producto cliente) throws Exception {
-		Optional<Producto> clientFound = repository.findByNombre(cliente.getNombre());
-		if(clientFound.isPresent()) {
-			throw new Exception("Cliente Ya Registrado");
+	private boolean checkProductoAvailable(Producto producto) throws Exception {
+		Optional<Producto> productoFound = repository.findByNombre(producto.getNombre());
+		if(productoFound.isPresent()) {
+			throw new Exception("Proucto Ya Registrado");
 			
 		}
 		return true;
@@ -63,13 +65,17 @@ public Producto getProductoById(Long id) throws UsernameOrIdNotFound {
 @Override
 public Producto updateProducto(Producto productoForm) throws Exception {
 	Producto toProducto= getProductoById(productoForm.getId());
-	mapClient(productoForm,toProducto);
+	mapProducto(productoForm,toProducto);
 	return repository.save(toProducto);
 }
 
-protected void mapClient(Producto from,Producto to) {
+protected void mapProducto(Producto from,Producto to) {
 
 to.setNombre(from.getNombre());
+to.setCantidad(from.getCantidad());
+to.setEstado(from.getEstado());
+to.setPrecio(from.getPrecio());
+
 
 
 

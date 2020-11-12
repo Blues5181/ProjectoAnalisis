@@ -1,27 +1,29 @@
  <div class="table-responsive">	
-                                    <table id="clientList" class="table table-bordered table-hover table-striped">	
+                                    <table id="productoList" class="table table-bordered table-hover table-striped">	
                                         <thead class="thead-light">	
                                         <tr>	
                                            
                                             <th scope="col">Id</th>	
-                                            <th scope="col">direccion</th>	
-                                            <th scope="col">nombre</th>	
-                                            <th scope="col">nit</th>	
+                                            <th scope="col">Nombre</th>	
+                                            <th scope="col">cantidad</th>	
+                                            <th scope="col">Precio</th>
+                                            <th scope="col">estado</th>	
                                             <th></th>	
                                         </tr>	
                                         </thead>	
                                         <tbody>	
-                                       <tr th:each="cliente: ${clientList}">
-			<td th:text="${cliente.id}"></td>
-			<td th:text="${cliente.dirreccion}"></td>
-			<td th:text="${cliente.nombre}"></td>
-			<td th:text="${cliente.nit}"></td>
+                                       <tr th:each="producto: ${productoList}">
+			<td th:text="${producto.id}"></td>
+			<td th:text="${producto.nombre}"></td>
+			<td th:text="${producto.cantidad}"></td>
+			<td th:text="Q+${producto.precio}"></td>
+			<td th:text="${producto.estado}"></td>
 			<td>
                                      
-                                                <a href="#" th:href="@{'/editClient/'+${cliente.id}}"><i class="fas fa-edit"></i></a> 
+                                                <a href="#" th:href="@{'/editProducto/'+${producto.id}}"><i class="fas fa-edit"></i></a> 
                                               
                                                 <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or ${#authorization.expression('hasRole(''ROLE_USER'')')}"  >
-                                               <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${cliente.id} +'\');'"><i class="fas fa-user-times"></i></a>
+                                               <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${producto.id} +'\');'"><i class="fas fa-user-times"></i></a>
                                            </span>       
                                             </td>	
                                         </tr>	

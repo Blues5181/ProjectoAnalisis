@@ -36,11 +36,12 @@
 	<!-- Nuestro css-->	
 	<link rel="stylesheet" type="text/css" href="static/css/for_cliente.css"	
 		th:href="@{/css/for_cliente.css}">	
-
+<link rel="stylesheet" type="text/css" href="static/css/paraMinavbar.css"	
+		th:href="@{/css/paraMinavbar.css}">	
     <script type="text/javascript">	
         $(document).ready(function() {	
             //Asegurate que el id que le diste a la tabla sea igual al texto despues del simbolo #	
-            $('#cliente').DataTable();	
+            $('#producto').DataTable();	
         } );	
         
    
@@ -68,6 +69,14 @@
     <div class="container">	
         <div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">	
             <ul class="nav nav-tabs justify-content-end">	
+           
+     <li class="nav-item">
+      <a class="nav-link" href="/for_usuario">Usuario</a>
+    </li>
+    
+     <li class="nav-item">
+      <a class="nav-link" href="/for_client">Clientes</a>
+    </li>
                 <li class="nav-item">	
                 <a class="nav-link " th:classappend=" ${listTab}"id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">Lista</a>	
                 </li>	
@@ -82,17 +91,17 @@
                             <h4 class="mb-0">Lista</h4>	
                         </div>	
                         <div class="card-body">	
-                             <div th:include="formulario_cliente/list_client.html" th:remove="tag"></div>  
+                             <div th:include="formulario_producto/list_producto.html" th:remove="tag"></div>  
                         </div>	
                     </div>	
                 </div>	
                 <div class="tab-pane fade show"th:classappend=" ${formTab}" id="form" role="tabpanel" aria-labelledby="form-tab">	
                     <div class="card">	
                         <div class="card-header">	
-                            <h4>Clientes</h4>	
+                            <h4>Productos</h4>	
                         </div>	
                             <div class="card-body">
-                            <div th:include="formulario_cliente/form_client.html"th:remove="tag"></div>               	
+                            <div th:include="formulario_producto/form_producto.html"th:remove="tag"></div>               	
                         </div>	
                     </div>	
                 </div>	

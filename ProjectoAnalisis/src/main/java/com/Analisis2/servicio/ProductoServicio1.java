@@ -5,8 +5,7 @@ import java.util.Optional;
 import com.Analisis2.Exception.UsernameOrIdNotFound;
 import com.Analisis2.entity.Producto;
 
-public interface ProductoServicio {
-
+public interface ProductoServicio1 {
 public Iterable<Producto> getAllProducto();
 
 	
@@ -16,7 +15,4 @@ public Iterable<Producto> getAllProducto();
 	public Producto updateProducto(Producto producto) throws Exception;
 
 	public void deleteProducto(Long id) throws UsernameOrIdNotFound;
-	
-	
-	
 }

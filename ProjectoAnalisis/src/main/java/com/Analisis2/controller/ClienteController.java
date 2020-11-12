@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.Analisis2.Exception.UsernameOrIdNotFound;
-import com.Analisis2.dto.ChangePasswordForm;
+
 import com.Analisis2.entity.Cliente;
-import com.Analisis2.entity.Usuario;
+
 import com.Analisis2.servicio.ClienteServicio;
 
 
